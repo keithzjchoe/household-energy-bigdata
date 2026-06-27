@@ -1,6 +1,6 @@
-# Household Energy Consumption — Big Data Analytics
+# Household Energy Consumption : Big Data Analytics
 
-A big data analytics project analysing over 2 million records of household electricity consumption using the full Hadoop ecosystem — Apache Hive, Apache Spark SQL, and Java MapReduce — deployed on a Cloudera QuickStart VM.
+A big data analytics project analysing over 2 million records of household electricity consumption using the full Hadoop ecosystem (Apache Hive, Apache Spark SQL, and Java MapReduce) deployed on a Cloudera QuickStart VM.
 
 ---
 
@@ -18,7 +18,7 @@ Key analyses include:
 
 ## Dataset
 
-**Source:** [Individual Household Electric Power Consumption](https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption) — UCI Machine Learning Repository
+**Source:** [Individual Household Electric Power Consumption](https://archive.ics.uci.edu/dataset/235/individual+household+electric+power+consumption) - UCI Machine Learning Repository
 
 | Column | Description |
 |---|---|
@@ -33,7 +33,7 @@ Key analyses include:
 | `Sub_metering_3` | Water heater and air conditioner energy consumption |
 
 - **Total records:** 2,075,260 (minute-by-minute readings)
-- **Period covered:** December 2006 – November 2010
+- **Period covered:** December 2006 - November 2010
 - **File size:** 126.8 MB
 - **Missing values:** 25,980 records (1.25%) marked as `?` — handled via query-level normalisation
 
@@ -55,9 +55,9 @@ The project follows a layered architecture deployed on **Cloudera QuickStart VM*
 ```
 
 **Key design decisions:**
-- **External Table** in Hive — decouples metadata from raw CSV files, prevents accidental deletion, allows multiple engines to access the same HDFS data
-- **Schema-on-Read** — raw telemetry stored in native format in HDFS, schema applied only at query time
-- **HDFS Replication Factor 3** — ensures fault tolerance; each data block copied across three nodes
+- **External Table** in Hive : decouples metadata from raw CSV files, prevents accidental deletion, allows multiple engines to access the same HDFS data
+- **Schema-on-Read** : raw telemetry stored in native format in HDFS, schema applied only at query time
+- **HDFS Replication Factor 3** : ensures fault tolerance, each data block copied across three nodes
 - **Query-level normalisation** — `CASE WHEN active_p = '?' THEN NULL ELSE CAST(active_p AS DOUBLE)` handles missing `?` values inline, avoiding a separate preprocessing stage
 
 ---
@@ -106,7 +106,7 @@ sqlContext.sql("""
 
 A custom Java MapReduce job (`EnergyMapper`, `EnergyReducer`, `EnergyDriver`) processes the full 2M+ record dataset:
 
-- **Map Phase:** Parses each line, filters `?` values and malformed rows, emits `(date, global_active_power)` key-value pairs — 2,049,280 valid records emitted
+- **Map Phase:** Parses each line, filters `?` values and malformed rows, emits `(date, global_active_power)` key-value pairs : 2,049,280 valid records emitted
 - **Shuffle & Sort:** Hadoop groups all values by date key automatically
 - **Reduce Phase:** Sums all power values per date, rounds to 2 decimal places, writes 1,433 unique daily totals to HDFS
 
@@ -151,8 +151,8 @@ The same aggregation query was executed 5 times per framework and averaged:
 | Apache Hive | 21.10s |
 
 **Why the difference:**
-- **Spark** processes data in memory, minimising disk I/O — ideal for iterative and repeated queries
-- **MapReduce** writes intermediate results to disk between map and reduce stages — efficient for large-scale batch but slower than Spark
+- **Spark** processes data in memory, minimising disk I/O, ideal for iterative and repeated queries
+- **MapReduce** writes intermediate results to disk between map and reduce stages, efficient for large-scale batch but slower than Spark
 - **Hive** translates SQL to MapReduce internally, adding an extra translation layer overhead
 
 ---
@@ -183,5 +183,5 @@ To replicate:
 
 ## Acknowledgements
 
-Group project — Taylor's University, Bachelor of Computer Science.
+Group project : Taylor's University, Bachelor of Computer Science.
 Dataset: UCI Machine Learning Repository — Individual Household Electric Power Consumption (Hebrail & Berard, 2012).
