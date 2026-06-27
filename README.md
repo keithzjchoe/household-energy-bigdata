@@ -170,7 +170,7 @@ The same aggregation query was executed 5 times per framework and averaged:
 
 ## Environment
 
-This project was developed and executed entirely within a **Cloudera QuickStart VM** (VirtualBox). There are no runnable notebooks — all queries were executed directly in the Hive CLI and Spark Shell, and the MapReduce job was compiled and submitted as a JAR file.
+This project was developed and executed entirely within a **Cloudera QuickStart VM** (VirtualBox). There are no runnable notebooks. All queries were executed directly in the Hive CLI and Spark Shell, and the MapReduce job was compiled and submitted as a JAR file.
 
 To replicate:
 1. Set up Cloudera QuickStart VM
@@ -184,4 +184,4 @@ To replicate:
 ## Acknowledgements
 
 Group project : Taylor's University, Bachelor of Computer Science.
-Dataset: UCI Machine Learning Repository — Individual Household Electric Power Consumption (Hebrail & Berard, 2012).
+Dataset: UCI Machine Learning Repository - Individual Household Electric Power Consumption (Hebrail & Berard, 2012).
